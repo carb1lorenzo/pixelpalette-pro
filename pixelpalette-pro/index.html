@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PixelPalette Pro</title>
+  <meta name="theme-color" content="#121212" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>PixelPalette Pro</h1>
+    <p class="sub">Palette di colori intelligenti · Offline</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <label class="file-btn">
+        <input id="fileInput" type="file" accept="image/*" />
+        Scegli immagine
+      </label>
+      <button id="analyzeBtn" disabled>Estrai colori</button>
+      <button id="exportPNG" disabled>Esporta PNG palette</button>
+      <button id="storyBtn" disabled>Poster “Story”</button>
+    </section>
+
+    <nav class="tabs">
+      <button data-tab="palette" class="active">Palette</button>
+      <button data-tab="theme">Tema UI</button>
+      <button data-tab="generator">Generatore</button>
+      <button data-tab="mixer">Mixer</button>
+      <button data-tab="sound">Suono</button>
+      <button data-tab="match">Match</button>
+    </nav>
+
+    <section id="palette" class="tab active">
+      <div class="row">
+        <div class="col">
+          <canvas id="imgCanvas" width="0" height="0" aria-label="Anteprima"></canvas>
+        </div>
+        <div class="col">
+          <div id="swatches" class="swatches"></div>
+          <textarea id="hexList" readonly rows="6" spellcheck="false" placeholder="#HEX"></textarea>
+          <div class="row gap">
+            <button id="copyHex" class="ghost">Copia HEX</button>
+            <button id="smartSort" class="ghost">Riordina smart</button>
+            <button id="namesBtn" class="ghost">Nomi</button>
+          </div>
+          <div id="namesBox" class="names"></div>
+          <div id="moodBox" class="mood"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="theme" class="tab">
+      <div class="row gap">
+        <button id="buildTheme">Genera Tema</button>
+        <button id="exportCSS" class="ghost">Esporta CSS</button>
+        <button id="exportJSON" class="ghost">Esporta JSON</button>
+      </div>
+      <div id="themePreview" class="theme-preview">
+        <div class="surface">
+          <button class="btn primary">Primary</button>
+          <button class="btn secondary">Secondary</button>
+          <button class="btn danger">Danger</button>
+          <p class="text">Testo di esempio</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="generator" class="tab">
+      <div class="row gap">
+        <input id="baseColor" type="color" value="#7c5cff" />
+        <button id="genHarmony">Palette Armonica</button>
+        <button id="gradientsBtn" class="ghost">Gradienti</button>
+        <button id="wallpaperBtn" class="ghost">Wallpaper</button>
+      </div>
+      <div id="genOutput" class="swatches"></div>
+      <canvas id="renderCanvas" width="0" height="0"></canvas>
+    </section>
+
+    <section id="mixer" class="tab">
+      <div class="row gap">
+        <input id="mixA" type="color" value="#ff5a5f" />
+        <input id="mixB" type="color" value="#00c2a8" />
+        <button id="mixBtn">Mescola</button>
+      </div>
+      <div id="mixOutput" class="swatches"></div>
+    </section>
+
+    <section id="sound" class="tab">
+      <p>Premi su un colore per sentirne il suono (hue → frequenza).</p>
+      <div id="soundSwatches" class="swatches"></div>
+    </section>
+
+    <section id="match" class="tab">
+      <button id="matchBtn">Trova Match Brand</button>
+      <div id="matchTable" class="table"></div>
+    </section>
+
+  </main>
+
+  <footer></footer>
+
+  <!-- Pyodide (caricato da CDN; poi la PWA lo mette in cache per l'offline) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
